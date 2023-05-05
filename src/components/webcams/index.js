@@ -152,6 +152,7 @@ const Webcams = () => {
       aria-label={intl.formatMessage(intlMessages.aria)}
       className="webcams-wrapper"
       id={ID.WEBCAMS}
+      onContextMenu={(e)=> e.preventDefault()}
     >
       <div data-vjs-player>
         <video
