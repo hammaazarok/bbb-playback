@@ -89,8 +89,8 @@ const buildOptions = (sources, tracks) => {
   };
 };
 
-const dispatchTimeUpdate = (time) => {
-  const event = new CustomEvent(EVENTS.TIME_UPDATE, { detail: { time }});
+const dispatchTimeUpdate = (time, duration) => {
+  const event = new CustomEvent(EVENTS.TIME_UPDATE, { detail: { time, duration }});
   document.dispatchEvent(event);
 };
 
@@ -111,7 +111,8 @@ const Webcams = () => {
           const frequency = getFrequency();
           interval.current = setInterval(() => {
             const currentTime = player.webcams.currentTime();
-            dispatchTimeUpdate(currentTime);
+            const duration = player.webcams.duration();
+            dispatchTimeUpdate(currentTime, duration);
           }, 1000 / (frequency ? frequency : config.rps));
         });
 
@@ -119,7 +120,8 @@ const Webcams = () => {
 
         player.webcams.on('seeked', () => {
           const currentTime = player.webcams.currentTime();
-          dispatchTimeUpdate(currentTime);
+          const duration = player.webcams.duration();
+          dispatchTimeUpdate(currentTime, duration);
         });
 
         const time = getTime();
